@@ -69,7 +69,7 @@
                                 <input ng-model="col" type="color" class="button button-block" ng-change="changeConf('color', col)" ng-style="{'background-color': col }">
                             </div>
                             <div class="item" ng-show="mode.leds">
-                                <h2>Leds: {{ leds }}</h2>
+                                <h2>Leds: {{ conf.leds }}</h2>
                                 <div class="range">
                                     <i class="icon ion-minus"></i>
                                     <input type="range" min="1" max="11" ng-model="leds" ng-change="changeConf('leds', leds)">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="item" ng-show="mode.speed">
-                                <h2>Speed: {{ speed }}</h2>
+                                <h2>Speed: {{ conf.speed }}</h2>
                                 <div class="range">
                                     <i class="icon ion-plus"></i>
                                     <input type="range" ng-model="speed" ng-change="changeConf('speed', speed)">

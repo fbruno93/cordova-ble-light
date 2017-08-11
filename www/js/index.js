@@ -1,21 +1,27 @@
 angular.element(document).ready(function () { angular.bootstrap(document, ['app']); });
 
 angular.module('app', ['ionic'])
-.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate) {
+.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope) {
 
     var service_uuid = '0000b2f0-0000-1000-8000-00805f9b34fb';
     var characteristic_uuid = '0000b2f1-0000-1000-8000-00805f9b34fb';
     var device;
     var color = "#000000";
 
-    $scope.conf = {
-        mode: 0,
-        leds: 4,
-        speed: 50,
-        red: 0,
-        green: 0,
-        blue: 0
-    };
+    $scope.conf = $rootScope.conf;
+
+    // $scope.conf = {
+    //     mode: 0,
+    //     leds: 4,
+    //     speed: 50,
+    //     red: 0,
+    //     green: 0,
+    //     blue: 0
+    // };
+
+    document.addEventListener("backbutton", function() {
+        localStorage.setItem("conf", JSON.stringify($scope.conf));
+    });
 
     $scope.modes = [{
         name: 'Wheel Color',

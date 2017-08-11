@@ -9,6 +9,21 @@
         <link rel="stylesheet" type="text/css" href="css/ionic.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
+        <style>
+            input[type="color"] {
+                -webkit-appearance: none;
+                border: none;
+                width: 32px;
+                height: 32px;
+                width: 100%;
+            }
+            input[type="color"]::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch {
+                border: none;
+            }
+</style>
     </head>
     <body ng-controller="ctrl">
         
@@ -51,20 +66,23 @@
                                 </select>
                               </label>
                             <div class="item" ng-show="mode.color">
-                                <input type="color" ng-change="changeConf('color', color)" ng-model="color" style="border: none;
-    padding: none; background-color: {{color}};"/>
+                                <input ng-model="col" type="color" class="button button-block" ng-change="changeConf('color', col)" ng-style="{'background-color': col }">
                             </div>
-                            <div class="item range" ng-show="mode.leds">
-                                <span>Leds: {{ leds }}</span>
-                                <i class="icon ion-minus"></i>
-                                <input type="range" min="1" max="11" ng-model="leds" ng-change="changeConf('leds', leds)">
-                                <i class="icon ion-plus"></i>
+                            <div class="item" ng-show="mode.leds">
+                                <h2>Leds: {{ conf.leds }}</h2>
+                                <div class="range">
+                                    <i class="icon ion-minus"></i>
+                                    <input type="range" min="1" max="11" ng-model="leds" ng-change="changeConf('leds', leds)">
+                                    <i class="icon ion-plus"></i>
+                                </div>
                             </div>
-                            <div class="item range" ng-show="mode.speed">
-                                <span>Speed: {{ speed }}</span>
-                                <i class="icon ion-plus"></i>
-                                <input type="range" ng-model="speed" ng-change="changeConf('speed', speed)">
-                                <i class="icon ion-minus"></i>
+                            <div class="item" ng-show="mode.speed">
+                                <h2>Speed: {{ conf.speed }}</h2>
+                                <div class="range">
+                                    <i class="icon ion-plus"></i>
+                                    <input type="range" ng-model="speed" ng-change="changeConf('speed', speed)">
+                                    <i class="icon ion-minus"></i>
+                                </div>
                             </div>
                             <div class="item">
                                 <button type="color" class="button button-block button-positive" ng-click="sendConf()">

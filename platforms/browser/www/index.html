@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;-->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/ionic.min.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+        <style>
+            input[type="color"] {
+                -webkit-appearance: none;
+                border: none;
+                width: 32px;
+                height: 32px;
+                width: 100%;
+                opacity: 0;
+            }
+            input[type="color"]::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch {
+                border: none;
+            }
+</style>
+    </head>
+    <body ng-controller="ctrl">
+        
+        <ion-side-menus>
+            <!-- <ion-side-menu side="left">
+                <ion-list class="has-header">
+                    <ion-item ng-repeat="mode in modes" ng-click="changeMode(mode)">
+                        {{mode.name}}
+                    </ion-item>
+                </ion-list>
+            </ion-side-menu> -->
+
+            <ion-side-menu-content>
+                <ion-nav-bar align-title="center" >
+                    <!-- <ion-nav-buttons side="left">
+                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                    </ion-nav-buttons> -->
+                    <ion-nav-title>
+                        BLE Light
+                    </ion-nav-title>
+                    <ion-nav-buttons side="right">
+                    <!-- Toggle right side menu -->
+                    <button menu-toggle="right" class="button button-icon icon ion-bluetooth">
+                            {{ devices.length }}
+                    </button>
+                    </ion-nav-buttons>
+                </ion-nav-bar>
+
+                <ion-view>
+
+                    <ion-content class="has-header">
+                        
+                        <ion-list>
+                            <label class="item item-input item-select" >
+                                <div class="input-label">
+                                  Light Mode
+                                </div>
+                                <select ng-model="mo" ng-change="changeConf('mode', mo)">
+                                  <option ng-repeat="mod in modes" >{{ mod.name }}</option>
+                                </select>
+                              </label>
+                            <div class="item" ng-show="mode.color">
+
+                                <button class="button button-block" ng-click="opencolorbox()">
+                                    <input type="color">    
+                                </button> 
+
+                                <!-- <input type="color" ng-change="changeConf('color', color)" ng-model="color" style="border: none;
+    padding: none; background-color: {{color}};"/> -->
+                            </div>
+                            <div class="item range" ng-show="mode.leds">
+                                <span>Leds: {{ leds }}</span>
+                                <i class="icon ion-minus"></i>
+                                <input type="range" min="1" max="11" ng-model="leds" ng-change="changeConf('leds', leds)">
+                                <i class="icon ion-plus"></i>
+                            </div>
+                            <div class="item range" ng-show="mode.speed">
+                                <span>Speed: {{ speed }}</span>
+                                <i class="icon ion-plus"></i>
+                                <input type="range" ng-model="speed" ng-change="changeConf('speed', speed)">
+                                <i class="icon ion-minus"></i>
+                            </div>
+                            <div class="item">
+                                <button type="color" class="button button-block button-positive" ng-click="sendConf()">
+                                    Let there be light
+                                </button>
+                                <!-- Let there be light,' and there was light -->
+                            </div>
+                        </ion-list>
+                    </ion-content>
+                </ion-view>
+            </ion-side-menu-content>
+
+            <ion-side-menu side="right">
+                <ion-list class="has-header">
+                    <ion-item ng-repeat="d in devices" ng-click="connect(d)">
+                        {{ d.name }}
+                    </ion-item>
+                </ion-list>
+            </ion-side-menu>
+
+        </ion-side-menus>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/ionic.bundle.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+    </body>
+</html>

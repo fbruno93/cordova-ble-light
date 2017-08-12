@@ -17,7 +17,7 @@ angular.module('app', ['ionic'])
         $rootScope.conf = JSON.parse(conf);
     console.log($rootScope.conf);
 })
-.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope) {
+.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope, $ionicLoading) {
 
     var service_uuid = '0000b2f0-0000-1000-8000-00805f9b34fb';
     var characteristic_uuid = '0000b2f1-0000-1000-8000-00805f9b34fb';

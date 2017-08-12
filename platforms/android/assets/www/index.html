@@ -9,43 +9,17 @@
         <link rel="stylesheet" type="text/css" href="css/ionic.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
-        <style>
-            input[type="color"] {
-                -webkit-appearance: none;
-                border: none;
-                width: 32px;
-                height: 32px;
-                width: 100%;
-            }
-            input[type="color"]::-webkit-color-swatch-wrapper {
-                padding: 0;
-            }
-            input[type="color"]::-webkit-color-swatch {
-                border: none;
-            }
-</style>
     </head>
     <body ng-controller="ctrl">
         
         <ion-side-menus>
-            <!-- <ion-side-menu side="left">
-                <ion-list class="has-header">
-                    <ion-item ng-repeat="mode in modes" ng-click="changeMode(mode)">
-                        {{mode.name}}
-                    </ion-item>
-                </ion-list>
-            </ion-side-menu> -->
 
             <ion-side-menu-content>
                 <ion-nav-bar align-title="center" >
-                    <!-- <ion-nav-buttons side="left">
-                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-                    </ion-nav-buttons> -->
                     <ion-nav-title>
                         BLE Light
                     </ion-nav-title>
                     <ion-nav-buttons side="right">
-                    <!-- Toggle right side menu -->
                     <button menu-toggle="right" class="button button-icon icon ion-bluetooth">
                             {{ devices.length }}
                     </button>
@@ -81,6 +55,14 @@
                                 <div class="range">
                                     <i class="icon ion-plus"></i>
                                     <input type="range" ng-model="speed" ng-change="changeConf('speed', speed)">
+                                    <i class="icon ion-minus"></i>
+                                </div>
+                            </div>
+                            <div class="item" ng-show="mode.counter">
+                                <h2>Counter from: {{ conf.speed }}</h2>
+                                <div class="range">
+                                    <i class="icon ion-plus"></i>
+                                    <input type="range" min="1" max="300" ng-model="speed" ng-change="changeConf('speed', speed)">
                                     <i class="icon ion-minus"></i>
                                 </div>
                             </div>

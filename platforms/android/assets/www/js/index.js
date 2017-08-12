@@ -12,7 +12,7 @@ angular.module('app', ['ionic'])
     };
     var conf = localStorage.getItem('conf')
     if (conf == null)
-        $rootScope.conf = conf;
+        $rootScope.conf = def;
     else 
         $rootScope.conf = JSON.parse(conf);
     console.log($rootScope.conf);
@@ -55,8 +55,8 @@ angular.module('app', ['ionic'])
     },{
         name: 'Counter',
         color: true,
-        leds: true,
-        speed: true,
+        leds: false,
+        counter: true,
         value: 3
     },{
         name: 'Snake',

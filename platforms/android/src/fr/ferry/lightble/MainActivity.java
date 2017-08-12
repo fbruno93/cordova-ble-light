@@ -17,7 +17,7 @@
        under the License.
  */
 
-package io.cordova.hellocordova;
+package fr.ferry.lightble;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

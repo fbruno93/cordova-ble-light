@@ -67,6 +67,14 @@
                                 </div>
                             </div>
                             <div class="item">
+                                <h2>Brightness: {{ conf.bright }}</h2>
+                                <div class="range">
+                                    <i class="icon ion-minus"></i>
+                                    <input type="range" min="1" max="255" ng-model="bright" ng-change="changeConf('bright', bright)">
+                                    <i class="icon ion-plus"></i>
+                                </div>
+                            </div>
+                            <div class="item">
                                 <button type="color" class="button button-block button-positive" ng-click="sendConf()">
                                     Let there be light
                                 </button>

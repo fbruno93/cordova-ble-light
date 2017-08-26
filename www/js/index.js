@@ -119,12 +119,16 @@ angular.module('app', ['ionic'])
         });
 
         ble.connect(dev.id, function(s) {
+            console.log(s);
             device = dev;
-            $ionicLoading.hide().then($ionicSideMenuDelegate.toggleRight);
+            $ionicLoading.hide();
+            $ionicSideMenuDelegate.toggleRight();
             $scope.$apply();
         }, function(e) {
+            console.warn(e)
             alert("Please retry to connect");
             alert(JSON.stringify(e));
+            $ionicLoading.hide();
             $scope.$apply();
         });
     };

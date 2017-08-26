@@ -110,7 +110,11 @@ angular.module('app', ['ionic'])
             alert("please connect on device");
             $ionicSideMenuDelegate.toggleRight();
         } else 
-            ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, console.log, alert);
+            ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, function(s) {
+                console.log(s);
+            }, function(e) {
+                console.warn(e);
+            });
     };
 
     $scope.connect = function(dev) {

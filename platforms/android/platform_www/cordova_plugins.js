@@ -12,9 +12,9 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "cordova-plugin-whitelist": "1.3.2",
     "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-ble-central": "1.1.4",
-    "cordova-plugin-whitelist": "1.3.2"
+    "cordova-plugin-ble-central": "1.1.4"
 };
 // BOTTOM OF METADATA
 });

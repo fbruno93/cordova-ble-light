@@ -42,14 +42,14 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-ble-central": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "fr.ferry.lightble"
+        },
+        "cordova-plugin-ble-central": {
+            "PACKAGE_NAME": "fr.ferry.lightble"
         }
     },
     "dependent_plugins": {},
@@ -64,8 +64,8 @@
         }
     ],
     "plugin_metadata": {
+        "cordova-plugin-whitelist": "1.3.2",
         "cordova-plugin-compat": "1.1.0",
-        "cordova-plugin-ble-central": "1.1.4",
-        "cordova-plugin-whitelist": "1.3.2"
+        "cordova-plugin-ble-central": "1.1.4"
     }
 }

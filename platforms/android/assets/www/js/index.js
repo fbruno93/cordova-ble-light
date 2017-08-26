@@ -17,7 +17,7 @@ angular.module('app', ['ionic'])
         $rootScope.conf = JSON.parse(conf);
     console.log($rootScope.conf);
 })
-.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope) {
+.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope, $ionicLoading) {
 
     var service_uuid = '0000b2f0-0000-1000-8000-00805f9b34fb';
     var characteristic_uuid = '0000b2f1-0000-1000-8000-00805f9b34fb';
@@ -110,7 +110,11 @@ angular.module('app', ['ionic'])
             alert("please connect on device");
             $ionicSideMenuDelegate.toggleRight();
         } else 
-            ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, console.log, alert);
+            ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, function(s) {
+                console.log(s);
+            }, function(e) {
+                console.warn(e);
+            });
     };
 
     $scope.connect = function(dev) {
@@ -119,12 +123,16 @@ angular.module('app', ['ionic'])
         });
 
         ble.connect(dev.id, function(s) {
+            console.log(s);
             device = dev;
-            $ionicLoading.hide().then($ionicSideMenuDelegate.toggleRight);
+            $ionicLoading.hide();
+            $ionicSideMenuDelegate.toggleRight();
             $scope.$apply();
         }, function(e) {
+            console.warn(e)
             alert("Please retry to connect");
             alert(JSON.stringify(e));
+            $ionicLoading.hide();
             $scope.$apply();
         });
     };

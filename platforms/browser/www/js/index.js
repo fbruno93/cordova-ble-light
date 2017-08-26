@@ -1,21 +1,38 @@
 angular.element(document).ready(function () { angular.bootstrap(document, ['app']); });
 
 angular.module('app', ['ionic'])
-.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate) {
-
-    var service_uuid = '0000b2f0-0000-1000-8000-00805f9b34fb';
-    var characteristic_uuid = '0000b2f1-0000-1000-8000-00805f9b34fb';
-    var device;
-    var color = "#000000";
-
-    $scope.conf = {
+.run(function($rootScope) {
+    var def = {
         mode: 0,
         leds: 4,
         speed: 50,
         red: 0,
         green: 0,
-        blue: 0
+        blue: 255
     };
+    var conf = localStorage.getItem('conf')
+    if (conf == null)
+        $rootScope.conf = def;
+    else 
+        $rootScope.conf = JSON.parse(conf);
+    console.log($rootScope.conf);
+})
+.controller('ctrl', function($scope, $timeout, $ionicSideMenuDelegate, $rootScope, $ionicLoading) {
+
+    var service_uuid = '0000b2f0-0000-1000-8000-00805f9b34fb';
+    var characteristic_uuid = '0000b2f1-0000-1000-8000-00805f9b34fb';
+    var device;
+
+    $scope.conf = angular.copy($rootScope.conf);
+    
+    var r = $scope.conf.red.toString(16)
+    r = r.length > 1 ? r : '0' + r;
+    var g = $scope.conf.green.toString(16)
+    g = g.length > 1 ? g : '0' + g;
+    var b = $scope.conf.blue.toString(16)
+    b = b.length > 1 ? b : '0' + b;
+
+    $scope.col = '#' + r + g + b;
 
     $scope.modes = [{
         name: 'Wheel Color',
@@ -38,8 +55,8 @@ angular.module('app', ['ionic'])
     },{
         name: 'Counter',
         color: true,
-        leds: true,
-        speed: true,
+        leds: false,
+        counter: true,
         value: 3
     },{
         name: 'Snake',
@@ -59,9 +76,10 @@ angular.module('app', ['ionic'])
         color: true,
         leds: false,
         speed: false,
-    }]
+    }];
 
-    $scope.mode = $scope.modes[0];    
+    $scope.mode    = $scope.modes[$scope.conf.mode];
+    $scope.mo      = $scope.mode.name
     $scope.devices = [];
 
     $timeout(function() {
@@ -87,15 +105,16 @@ angular.module('app', ['ionic'])
         array[3] = $scope.conf.blue;
         array[4] = $scope.conf.speed;
         array[5] = $scope.conf.leds;
-        console.log(array[5]);
+
         if (device === undefined) {
             alert("please connect on device");
             $ionicSideMenuDelegate.toggleRight();
-        }
-        ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, console.log, alert);
-    };
-
-    $scope.opencolorbox = function() {
+        } else 
+            ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, function(s) {
+                console.log(s);
+            }, function(e) {
+                console.warn(e);
+            });
     };
 
     $scope.connect = function(dev) {
@@ -104,22 +123,26 @@ angular.module('app', ['ionic'])
         });
 
         ble.connect(dev.id, function(s) {
+            console.log(s);
             device = dev;
-            $ionicLoading.hide().then($ionicSideMenuDelegate.toggleRight);
+            $ionicLoading.hide();
+            $ionicSideMenuDelegate.toggleRight();
             $scope.$apply();
         }, function(e) {
+            console.warn(e)
             alert("Please retry to connect");
             alert(JSON.stringify(e));
+            $ionicLoading.hide();
             $scope.$apply();
         });
     };
 
     $scope.changeConf = function(mode, value) {
-        console.log(mode, value);
+
         switch (mode) {
             case 'color':
-                var rgb = color.slice(1);
-                $scope.conf.red   = parseInt((rgb[0] + rgb[1]), 16);
+                var rgb = value.slice(1);
+                $scope.conf.red   = parseInt(rgb[0] + rgb[1], 16);
                 $scope.conf.green = parseInt(rgb[2] + rgb[3], 16);
                 $scope.conf.blue  = parseInt(rgb[4] + rgb[5], 16);
             break;
@@ -132,6 +155,9 @@ angular.module('app', ['ionic'])
             break;
             default:
                 $scope.conf[mode] = value
+                
         }
+
+        localStorage.setItem('conf', JSON.stringify($scope.conf));
     };
 });

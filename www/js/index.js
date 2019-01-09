@@ -114,6 +114,7 @@ angular.module('app', ['ionic'])
             ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, function(s) {
                 console.log(s);
             }, function(e) {
+                alert(e);
                 console.warn(e);
             });
     };

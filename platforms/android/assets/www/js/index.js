@@ -8,7 +8,8 @@ angular.module('app', ['ionic'])
         speed: 50,
         red: 0,
         green: 0,
-        blue: 255
+        blue: 255,
+        bright: 128
     };
     var conf = localStorage.getItem('conf')
     if (conf == null)
@@ -97,14 +98,14 @@ angular.module('app', ['ionic'])
     }, 1500);
 
     $scope.sendConf = function() {
-
-        var array = new Uint8Array(6);
+        var array = new Uint8Array(7);
         array[0] = $scope.conf.mode;
         array[1] = $scope.conf.red;
         array[2] = $scope.conf.green;
         array[3] = $scope.conf.blue;
         array[4] = $scope.conf.speed;
         array[5] = $scope.conf.leds;
+        array[6] = $scope.conf.bright;
 
         if (device === undefined) {
             alert("please connect on device");
@@ -113,6 +114,7 @@ angular.module('app', ['ionic'])
             ble.writeWithoutResponse(device.id, service_uuid, characteristic_uuid, array.buffer, function(s) {
                 console.log(s);
             }, function(e) {
+                alert(e);
                 console.warn(e);
             });
     };
